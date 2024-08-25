@@ -17,7 +17,6 @@ end
 require("nvim-tree").setup {
   ---
   on_attach = my_on_attach,
-  
      disable_netrw = true,
      hijack_cursor = true,
 
@@ -32,12 +31,16 @@ require("nvim-tree").setup {
        },
      },
 
+      filesystem_watchers = {
+        enable = true,
+        debounce_delay = 50,
+      },
+
      view = {
        width = 40,
        side = 'left',
        signcolumn = 'yes',
      },
-
      log = {
        enable=true,
        truncate=true,

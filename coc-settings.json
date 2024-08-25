@@ -1,4 +1,11 @@
 {
-  "snippets.ultisnips.pythonPrompt": false,
-  "Lua.diagnostics.globals": ["vim"]
+  "diagnostic.checkCurrentLine": true,
+  "inlayHint.enable": false,
+  "signature.target": "echo",
+  "Lua.diagnostics.globals": ["vim"],
+  "sql.database": "postgresql",
+  "workspace.ignoredFolders": [
+  "$HOME",
+  "$HOME/.cargo/**",
+  "$HOME/.rustup/**"]
 }

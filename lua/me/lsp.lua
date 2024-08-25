@@ -46,6 +46,15 @@ keyset("n", "gy", "<Plug>(coc-type-definition)", {silent = true})
 keyset("n", "gi", "<Plug>(coc-implementation)", {silent = true})
 keyset("n", "gr", "<Plug>(coc-references)", {silent = true})
 
+function JumpToDefinitionVsplit()
+	vim.fn.CocAction('jumpDefinition', 'vsplit')
+end
+
+
+function JumpToDefinitionTab()
+	vim.fn.CocAction('jumpDefinition', 'tabe')
+end
+
 
 -- Use K to show documentation in preview window
 function _G.show_docs()
@@ -184,4 +193,15 @@ keyset("n", "<space>k", ":<C-u>CocPrev<cr>", opts)
 keyset("n", "<space>p", ":<C-u>CocListResume<cr>", opts)
 
 
+-- Define the ShowDocumentation function
+function ShowDocumentation()
+  if vim.fn['CocAction']('hasProvider', 'hover') then
+    vim.fn['CocActionAsync']('doHover')
+  else
+    -- Fallback to the default 'K' behavior
+    vim.api.nvim_feedkeys('K', 'in', true)
+  end
+end
 
+
+vim.api.nvim_set_keymap('n', 'K', '<cmd>lua ShowDocumentation()<CR>', { noremap = true, silent = true })
