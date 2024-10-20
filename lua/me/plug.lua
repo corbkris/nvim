@@ -19,6 +19,9 @@ Plug 'Aasim-A/scrollEOF.nvim'
 Plug 'morhetz/gruvbox'
 Plug 'joshdick/onedark.vim'
 
+--zig
+Plug 'ziglang/zig.vim'
+
 --Plug 'neovim/nvim-lspconfig' -- Collection of configurations for built-in LSP client
 --Plug 'hrsh7th/nvim-cmp' -- Autocompletion plugin
 --Plug 'hrsh7th/cmp-nvim-lsp' -- LSP source for nvim-cmp

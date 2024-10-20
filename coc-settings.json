@@ -7,5 +7,9 @@
   "workspace.ignoredFolders": [
   "$HOME",
   "$HOME/.cargo/**",
-  "$HOME/.rustup/**"]
+  "$HOME/.rustup/**"],
+  "zig.enabled": true,
+  "zig.startUpMessage": true,
+  "zig.path": "zls",
+  "zig.debugLog": false,
 }
