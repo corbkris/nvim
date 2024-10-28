@@ -21,7 +21,7 @@ vim.api.nvim_set_keymap('i', "(", "()<left>", { noremap = true, silent = true })
 -- Square bracket
 vim.api.nvim_set_keymap('i', "[", "[]<left>", { noremap = true, silent = true })
 
-vim.o.relativenumber = true
+
 
 vim.api.nvim_set_keymap("n", "<leader>ta", ":$tabnew<CR>", { noremap = true })
 vim.api.nvim_set_keymap("n", "<leader>tc", ":tabclose<CR>", { noremap = true })
@@ -33,9 +33,8 @@ vim.api.nvim_set_keymap("n", "<leader>tmp", ":-tabmove<CR>", { noremap = true })
 -- move current tab to next position
 vim.api.nvim_set_keymap("n", "<leader>tmn", ":+tabmove<CR>", { noremap = true })
 
+vim.api.nvim_set_keymap("n", "gd", "<cmd>Telescope lsp_definitions<CR>", { noremap = true, silent = true })
+vim.api.nvim_set_keymap("n", "gr", "<cmd>Telescope lsp_references<CR>", { noremap = true, silent = true })
 
-
-vim.api.nvim_set_keymap("n", "gv", "<cmd>lua JumpToDefinitionVsplit()<CR>", { noremap = true, silent = true })
-vim.api.nvim_set_keymap("n", "gt", "<cmd>lua JumpToDefinitionTab()<CR>", { noremap = true, silent = true })
-
-
+vim.keymap.set("n", "gdp", "<cmd>lua require('goto-preview').goto_preview_definition()<CR>", {noremap=true})
+vim.keymap.set("n", "gD", "<cmd>lua require('goto-preview').close_all_win()<CR>", {noremap=true})
