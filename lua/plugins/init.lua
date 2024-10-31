@@ -3,6 +3,7 @@
 
 local Plugins = {
 	{ 'tpope/vim-fugitive' },
+	{ 'kdheepak/lazygit.nvim' },
 
 }
 
