@@ -16,8 +16,6 @@ return {
 	},
 
 	config = function()
-		vim.opt.updatetime = 350
-		vim.opt.signcolumn = "yes"
 		local capabilities = require("cmp_nvim_lsp").default_capabilities()
 		local lspconfig = require('lspconfig')
 		local navic = require("nvim-navic") -- Make sure to require navic
@@ -25,35 +23,87 @@ return {
 		local formatter = require("lsp-format")
 
 
+		-- Show line diagnostics automatically in hover window
+		vim.o.updatetime = 200
+		vim.opt.signcolumn = "yes"
 
 
-		vim.g.airline_section_c = "%{%v:lua.require'nvim-navic'.get_location()%}"
-		--		vim.g.airline_section_c = "%{%v:lua.require'lsp.navic'.get_location()%}"
+		vim.diagnostic.config({
+			virtual_text = false
+		})
+
+		vim.api.nvim_set_keymap(
+			'n',
+			'<leader>d',
+			':lua vim.lsp.diagnostic.show_line_diagnostics()<CR>',
+			{ noremap = true, silent = true }
+		)
+
+
+
+		local border = {
+			{ "🭽", "FloatBorder" },
+			{ "▔", "FloatBorder" },
+			{ "🭾", "FloatBorder" },
+			{ "▕", "FloatBorder" },
+			{ "🭿", "FloatBorder" },
+			{ "▁", "FloatBorder" },
+			{ "🭼", "FloatBorder" },
+			{ "▏", "FloatBorder" },
+		}
+
+		local handlers = {
+			["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = border }),
+			["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = border }),
+		}
 
 		-- Define on_attach function
 		local on_attach = function(client, bufnr)
+			vim.cmd [[autocmd CursorHold,CursorHoldI * lua vim.diagnostic.open_float(nil, {focus=false})]]
 			-- Attach navic if the client supports document symbols
 			if client.server_capabilities.documentSymbolProvider then
 				navic.attach(client, bufnr)
 				navbuddy.attach(client, bufnr)
 				formatter.on_attach(client, bufnr)
 			end
+			handlers = handlers
 			-- Additional on_attach configurations can go here
+			vim.g.airline_section_c = "%{%v:lua.require'nvim-navic'.get_location()%}"
 		end
 
-		-- Enable some language servers with the additional completion capabilities offered by nvim-cmp
-		local servers = { 'gopls', 'rust_analyzer', 'ts_ls', 'clangd', 'lua_ls' } -- Added 'clangd'
-		for _, lsp in ipairs(servers) do
-			lspconfig[lsp].setup {
+		local server_configs = {
+			gopls = {
 				settings = {
 					gopls = {
-						gofumpt = true
-					}
+						gofumpt = true,
+						staticcheck = true,
+					},
 				},
-				on_attach = on_attach, -- Use the on_attach function
+			},
+			rust_analyzer = {
+				settings = {
+					['rust-analyzer'] = {
+						diagnostics = {
+							enable = true, -- Disables diagnostics provided by rust-analyzer
+						},
+					},
+				},
+			},
+			ts_ls = {},
+			clangd = {},
+			lua_ls = {},
+			solargraph = {},
+			zls = {},
+		}
+
+		-- Set up each language server with common capabilities and on_attach
+		for lsp, config in pairs(server_configs) do
+			lspconfig[lsp].setup(vim.tbl_deep_extend("force", {
+				on_attach = on_attach,
 				capabilities = capabilities,
-			}
+			}, config))
 		end
+
 
 		-- luasnip setup
 		local luasnip = require 'luasnip'

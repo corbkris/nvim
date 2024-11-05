@@ -9,4 +9,4 @@ vim.opt.shiftwidth = 2
 vim.opt.expandtab = false
 vim.opt.signcolumn = 'yes'
 vim.opt.termguicolors = true
-
+vim.opt.scrolloff = 10
