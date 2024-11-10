@@ -33,5 +33,9 @@ return {
 		vim.api.nvim_set_hl(0, 'LineNrAbove', { fg = 'grey', bold = false })
 		vim.api.nvim_set_hl(0, 'LineNr', { fg = 'blue', bold = false })
 		vim.api.nvim_set_hl(0, 'LineNrBelow', { fg = 'grey', bold = false })
+		vim.api.nvim_set_hl(0, 'TreesitterContext', { link = 'Normal' })
+		vim.api.nvim_set_hl(0, 'TreesitterContextLineNumber', { bg = 'NONE', fg = 'NONE' })
+		vim.api.nvim_set_hl(0, 'NormalFloat', { bg = 'NONE' })
+		vim.api.nvim_set_hl(0, 'NavBuddyColors', { bg = 'blue', bold = true })
 	end,
 }

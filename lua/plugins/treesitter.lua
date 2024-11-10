@@ -1,14 +1,15 @@
-local Plugin = { 'nvim-treesitter/nvim-treesitter' }
+local TreesitterPlugin = { 'nvim-treesitter/nvim-treesitter' }
 
-Plugin.main = 'nvim-treesitter.configs'
+TreesitterPlugin.main = 'nvim-treesitter.configs'
 
-Plugin.dependencies = {
-	{ 'nvim-treesitter/nvim-treesitter-textobjects' }
+TreesitterPlugin.dependencies = {
+	{ 'nvim-treesitter/nvim-treesitter-textobjects' },
+	{ 'nvim-treesitter/nvim-treesitter-context' },
 }
 
 
 -- See :help nvim-treesitter-modules
-Plugin.opts = {
+TreesitterPlugin.opts = {
 	auto_install = true,
 
 	highlight = {
@@ -50,4 +51,23 @@ Plugin.opts = {
 	},
 }
 
-return Plugin
+local TreesitterContextPlugin = {
+	'nvim-treesitter/nvim-treesitter-context',
+	config = function()
+		require('treesitter-context').setup {
+			enable = true,
+			multiwindow = false,
+			max_lines = 0,
+			max_window_height = 0,
+			line_numbers = true,
+			multiline_threshold = 20,
+			trim_scope = 'outer',
+			mode = 'topline',
+			seperator = nil,
+			zindex = 20,
+			on_attach = nil,
+		}
+	end
+}
+
+return { TreesitterPlugin, TreesitterContextPlugin }

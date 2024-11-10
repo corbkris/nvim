@@ -4,6 +4,7 @@ return {
 		"SmiteshP/nvim-navic",
 		"MunifTanjim/nui.nvim",
 		"nvim-telescope/telescope.nvim",
+		"numToStr/Comment.nvim",
 	},
 	keys = { "<C-n>" },
 	config = function()
@@ -137,12 +138,12 @@ return {
 				preference = nil, -- list of lsp server names in order of preference
 			},
 			source_buffer = {
-				follow_node = true, -- Keep the current node in focus on the source buffer
-				highlight = true, -- Highlight the currently focused node
-				reorient = "smart", -- "smart", "top", "mid" or "none"
-				scrolloff = nil   -- scrolloff value when navbuddy is open
+				follow_node = true,            -- Keep the current node in focus on the source buffer
+				highlight = true,              -- Highlight the currently focused node
+				reorient = "smart",            -- "smart", "top", "mid" or "none"
+				scrolloff = nil                -- scrolloff value when navbuddy is open
 			},
-			custom_hl_group = nil, -- "Visual" or any other hl group to use instead of inverted colors
+			custom_hl_group = "NavBuddyColors", -- "Visual" or any other hl group to use instead of inverted colors
 		}
 
 		vim.api.nvim_set_keymap("n", "<C-n>", ":Navbuddy<CR>", { noremap = true, silent = true })
