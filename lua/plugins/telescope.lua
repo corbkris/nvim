@@ -20,6 +20,7 @@ function Plugin.init()
 	vim.keymap.set('n', '<leader>ff', '<cmd>Telescope find_files<cr>', { desc = 'Search all files' })
 	vim.keymap.set('n', '<leader>fg', '<cmd>Telescope live_grep<cr>', { desc = 'Search in project' })
 	vim.keymap.set('n', '<leader>fd', '<cmd>Telescope diagnostics<cr>', { desc = 'Search diagnostics' })
+	vim.keymap.set('n', '<leader>fD', '<cmd>Telescope diagnostics bufnr=0<CR>', { desc = 'Search diagnostics in current buffer' })
 	vim.keymap.set('n', '<leader>fs', '<cmd>Telescope current_buffer_fuzzy_find<cr>', { desc = 'Buffer local search' })
 
 	vim.api.nvim_set_keymap("n", "gd", "<cmd>Telescope lsp_definitions<CR>", { noremap = true, silent = true })

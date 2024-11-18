@@ -8,9 +8,7 @@ return {
 		"hrsh7th/nvim-cmp",
 		"L3MON4D3/LuaSnip",
 		"saadparwaiz1/cmp_luasnip",
-		"SmiteshP/nvim-navic",
 		"SmiteshP/nvim-navbuddy",
-		"vim-airline/vim-airline",
 		"numToStr/Comment.nvim", -- Optional
 		"lukas-reineke/lsp-format.nvim",
 	},
@@ -18,8 +16,7 @@ return {
 	config = function()
 		local capabilities = require("cmp_nvim_lsp").default_capabilities()
 		local lspconfig = require('lspconfig')
-		local navic = require("nvim-navic") -- Make sure to require navic
-		local navbuddy = require("nvim-navbuddy")
+		local navbuddy = require('nvim-navbuddy')
 		local formatter = require("lsp-format")
 
 
@@ -35,40 +32,22 @@ return {
 		vim.api.nvim_set_keymap(
 			'n',
 			'<leader>d',
-			':lua vim.lsp.diagnostic.show_line_diagnostics()<CR>',
+			':lua vim.diagnostic.open_float()<CR>',
 			{ noremap = true, silent = true }
 		)
 
 
 
-		local border = {
-			{ "🭽", "FloatBorder" },
-			{ "▔", "FloatBorder" },
-			{ "🭾", "FloatBorder" },
-			{ "▕", "FloatBorder" },
-			{ "🭿", "FloatBorder" },
-			{ "▁", "FloatBorder" },
-			{ "🭼", "FloatBorder" },
-			{ "▏", "FloatBorder" },
-		}
-
-		local handlers = {
-			["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = border }),
-			["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = border }),
-		}
 
 		-- Define on_attach function
 		local on_attach = function(client, bufnr)
-			vim.cmd [[autocmd CursorHold,CursorHoldI * lua vim.diagnostic.open_float(nil, {focus=false})]]
 			-- Attach navic if the client supports document symbols
 			if client.server_capabilities.documentSymbolProvider then
-				navic.attach(client, bufnr)
 				navbuddy.attach(client, bufnr)
 				formatter.on_attach(client, bufnr)
 			end
 			handlers = handlers
 			-- Additional on_attach configurations can go here
-			vim.g.airline_section_c = "%{%v:lua.require'nvim-navic'.get_location()%}"
 		end
 
 		local server_configs = {
