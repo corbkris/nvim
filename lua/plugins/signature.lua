@@ -1,6 +1,6 @@
 return {
 	"ray-x/lsp_signature.nvim",
-	event = "VeryLazy",
+	keys = { "<C-k>" }, -- Lazy load on <C-k>
 	opts = {},
 	config = function(_, opts)
 		require 'lsp_signature'.setup(opts)
