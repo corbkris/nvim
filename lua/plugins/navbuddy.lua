@@ -6,7 +6,7 @@ return {
 		"nvim-telescope/telescope.nvim",
 		"numToStr/Comment.nvim",
 	},
-	keys = { "<C-n>" },
+	keys = { "<C-m>" },
 	config = function()
 		local navbuddy = require("nvim-navbuddy")
 		local actions = require("nvim-navbuddy.actions")
@@ -146,6 +146,6 @@ return {
 			custom_hl_group = "NavBuddyColors", -- "Visual" or any other hl group to use instead of inverted colors
 		}
 
-		vim.api.nvim_set_keymap("n", "<C-n>", ":Navbuddy<CR>", { noremap = true, silent = true })
+		vim.api.nvim_set_keymap("n", "<C-m>", ":Navbuddy<CR>", { noremap = true, silent = true })
 	end
 }

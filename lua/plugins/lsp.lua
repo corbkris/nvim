@@ -18,6 +18,7 @@ return {
 		local lspconfig = require('lspconfig')
 		local navbuddy = require('nvim-navbuddy')
 		local formatter = require("lsp-format")
+		local util = require('lspconfig.util')
 
 
 		-- Show line diagnostics automatically in hover window
@@ -43,8 +44,8 @@ return {
 		local on_attach = function(client, bufnr)
 			-- Attach navic if the client supports document symbols
 			if client.server_capabilities.documentSymbolProvider then
-				navbuddy.attach(client, bufnr)
 				formatter.on_attach(client, bufnr)
+				navbuddy.attach(client, bufnr)
 			end
 			handlers = handlers
 			-- Additional on_attach configurations can go here
@@ -65,10 +66,13 @@ return {
 						diagnostics = {
 							enable = true, -- Disables diagnostics provided by rust-analyzer
 						},
+						check = {
+							command = "clippy",
+						},
 					},
 				},
 			},
-			ts_ls = {},
+			denols = {},
 			clangd = {},
 			lua_ls = {},
 			solargraph = {},
@@ -123,6 +127,7 @@ return {
 				end, { 'i', 's' }),
 			}),
 			sources = {
+				{ name = 'path' },
 				{ name = 'nvim_lsp' },
 				{ name = 'luasnip' },
 			},

@@ -9,13 +9,18 @@ return {
 			"nvim-neotest/neotest-plenary",
 			{ "fredrikaverpil/neotest-golang", version = "*" },
 			{ "rouge8/neotest-rust" },
+			{ "markemmons/neotest-deno" },
 		},
 		config = function()
 			local neotest = require("neotest")
 			neotest.setup({
+				log_level = vim.log.levels.DEBUG,
 				adapters = {
+					require("neotest-deno"),
 					require("neotest-golang"),
-					require("neotest-rust"),
+					require("neotest-rust") {
+						args = { "--no-capture" },
+					},
 					require("neotest-plenary"),
 				}
 			})
