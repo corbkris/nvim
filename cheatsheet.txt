@@ -1,0 +1,7 @@
+// moving around
+j //down
+k //up
+h //left
+l //right
+0 // goto to beginning of line
+$ // goto end of line
